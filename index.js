@@ -2,6 +2,7 @@ const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use('/', createProxyMiddleware({
     target: 'https://www.google.com',
@@ -10,5 +11,6 @@ app.use('/', createProxyMiddleware({
     ws: true
 }));
 
-// Vercel requires exporting the app instead of calling app.listen()
-module.exports = app;
+app.listen(PORT, () => {
+    console.log(`Proxy server running on port ${PORT}`);
+});
